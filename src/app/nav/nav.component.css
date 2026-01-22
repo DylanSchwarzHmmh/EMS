@@ -1,0 +1,116 @@
+:host {
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --bg-light: #f8fafc;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --white: #ffffff;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.ems-navbar {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 0.75rem 1.5rem;
+  box-shadow: var(--shadow-lg);
+  margin: 1rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.ems-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: var(--bg-light);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.ems-logo:hover {
+  transform: translateY(-1px);
+}
+
+.ems-logo strong {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+}
+
+.ems-logo span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-left: 2px solid #e2e8f0;
+  padding-left: 12px;
+}
+
+.ems-nav-links {
+  display: flex;
+  gap: 8px;
+  background: var(--bg-light);
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.ems-nav-link {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ems-nav-link:hover {
+  color: var(--text-main);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.ems-nav-link.active {
+  background: var(--white);
+  color: var(--primary-color);
+  box-shadow: var(--shadow);
+}
+
+.ems-logout-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ems-logout {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ems-logout:hover {
+  color: #ef4444;
+  background: #fef2f2;
+}
+
+@media (max-width: 768px) {
+  .ems-logo span {
+    display: none;
+  }
+
+  .ems-navbar {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+}
