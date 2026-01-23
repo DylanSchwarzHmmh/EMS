@@ -104,6 +104,7 @@
   background: #fef2f2;
 }
 
+
 @media (max-width: 768px) {
   .ems-logo span {
     display: none;
