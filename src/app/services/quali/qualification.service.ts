@@ -35,6 +35,13 @@ export class QualificationService {
 
     return this.http.delete(this.apiUrl + "qualifications/" + id ,{ headers: headers })
   }
+
+  putQualifications(id: number, name: string){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.Token}`})
+
+    return this.http.put(this.apiUrl + "qualifications/"+ id,{skill: name},{ headers: headers })
+  }
 }
 
 
