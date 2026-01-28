@@ -1,0 +1,21 @@
+/* Die lila Rahmen der Boxen */
+.border-primary {
+  border-color: #6366f1 !important;
+}
+
+/* Der lila Hintergrund für Buttons und die Lupe */
+.btn-primary, .bg-primary {
+  background-color: #6366f1 !important;
+  border-color: #6366f1 !important;
+}
+
+/* Textfarbe für Icons (Stift/Mülltonne), falls sie lila sein sollen */
+.text-primary {
+  color: #6366f1 !important;
+}
+
+/* Hover-Effekt für den FAB (Plus-Button) */
+.btn-primary:hover {
+  background-color: #4f46e5 !important;
+  filter: brightness(90%);
+}
