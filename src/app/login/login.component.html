@@ -1,0 +1,40 @@
+<div class="login-wrapper">
+  <div class="login-container">
+    <h2>Anmelden</h2>
+    <p>Bitte geben Sie Ihre Daten ein.</p>
+
+    <div class="form-group">
+      <label for="username">Benutzername</label>
+      <input
+        id="username"
+        type="text"
+        [ngModel]="username()"
+        (ngModelChange)="username.set($event)"
+        placeholder="Benutzername"
+        [disabled]="isLoading()"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Passwort</label>
+      <input
+        id="password"
+        type="password"
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"
+        placeholder="Passwort"
+        [disabled]="isLoading()"
+      />
+    </div>
+
+    <div *ngIf="errorMessage()" class="error-alert">
+      {{ errorMessage() }}
+    </div>
+
+    <div class="actions">
+      <button (click)="onLogin()" [disabled]="isLoading()">
+        {{ isLoading() ? 'Weiterleitung...' : 'Login' }}
+      </button>
+    </div>
+  </div>
+</div>

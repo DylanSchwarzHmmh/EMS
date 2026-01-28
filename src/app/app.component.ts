@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterOutlet } from '@angular/router';
 import {EmployeeListComponent} from "./employee-list/employee-list.component";
 import {NavComponent} from "./nav/nav.component";
