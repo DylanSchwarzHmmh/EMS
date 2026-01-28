@@ -6,9 +6,13 @@ import { authGuard } from './auth.guard';
 import {LoginComponent} from "./login/login.component";
 
 export const routes: Routes = [
+  { path: 'dashboard', component: HomeComponent },
+  { path: 'employee', component: EmployeeListComponent, canActivate: [authGuard] },
+  { path: 'qualification', component: EmployeeListComponent },
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'callback', component: CallbackComponent },
-  { path: 'employees', component: EmployeeListComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: '' }
 ];
+
+
