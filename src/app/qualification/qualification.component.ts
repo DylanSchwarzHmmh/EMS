@@ -11,13 +11,20 @@ import {Qualification} from "../services/quali/qualification.model";
 })
 export class QualificationComponent implements OnInit {
 
+  isAdding = false;
+
+  showAddRow(){
+    this.isAdding = true;
+  }
+  hideAddRow(){
+    this.isAdding = false;
+  }
+
   private qualiServ = inject(QualificationService);
   qualifications: Qualification[] = [];
 
   ngOnInit(): void {
     this.loadQualifications();
-
-
   }
 
   loadQualifications(): void {
@@ -67,4 +74,14 @@ export class QualificationComponent implements OnInit {
 
   //Den Service aufrufen, sobald die Komponente "geboren" wird (ngOnInit).
 
+  protected onSave(skillName: string) {
+    this.qualiServ.postQualifications(skillName).subscribe({
+      next: () => {
+        // 2. ERFOLG! Jetzt rufen wir unsere Lade-Funktion von vorhin auf
+        // Damit wird die Liste vom Server neu geholt und das HTML aktualisiert sich automatisch.
+        this.loadQualifications();
+        this.hideAddRow()
+   }
+    })
+  }
 }
