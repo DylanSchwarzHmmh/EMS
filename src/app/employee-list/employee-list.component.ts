@@ -1,31 +1,61 @@
-import { Component } from '@angular/core';
+import {Component, computed, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, of } from "rxjs";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Employee } from "../Employee";
-import { AuthService } from "../services/auth.service";
+import { EmployeeService } from '../employee/employee.service';
+import { Employee } from '../employee/employee.model';
 
 @Component({
-    selector: 'app-employee-list',
-    imports: [CommonModule],
-    templateUrl: './employee-list.component.html',
-    styleUrl: './employee-list.component.css'
+  selector: 'app-employee-list',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './employee-list.component.html',
+  styleUrl: './employee-list.component.css',
 })
 export class EmployeeListComponent {
-  bearer = 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjBiNGE3Mjc5YjQ1NzJiMDIwMDk3MzI2MTBhNzU4NGU2IiwidHlwIjoiSldUIn0.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwMDAvYXBwbGljYXRpb24vby9lbXBsb3llZV9hcGkvIiwic3ViIjoiNzZlOWNmYTdiMzgwNTkzYzYwODk2MDRiMzkwMGE1YzJhYzA5YWNiMDMzNTI4YWUxMTdmMjVhNDZiMTU4MzNlYiIsImF1ZCI6ImVtcGxveWVlX2FwaV9jbGllbnQiLCJleHAiOjE3NjE3Mjk0MDksImlhdCI6MTc2MTcyNjQwOSwiYXV0aF90aW1lIjoxNzYxNzI2NDA5LCJhY3IiOiJnb2F1dGhlbnRpay5pby9wcm92aWRlcnMvb2F1dGgyL2RlZmF1bHQiLCJhenAiOiJlbXBsb3llZV9hcGlfY2xpZW50IiwidWlkIjoiODBaOGg0eTVISnVoVkFqWExZUE05blpoWTU2YnlOUGpTWk9MUUxkQyJ9.uy8uRxarKW5VKfWdj5vzdiF0DZEO84y4V2lEb-KYg2qP-Cwiotgy07tWv-djR4Pk1kHxZlalT3NrZkT5LfGJBXfpsLRuVX_gmrRBwymdyhLjkxHOotSBXQTdm_0yZDOieinJX8ruF90st37fWSTtzUgsT3zTFXhwsZNW8Tjf7lgiZOoZDNAg1mocqVHi98tJA1d2wIK2CEwE2baIbsRIU9G9vxn6vW9r_cNrgs5wIFfYsWU1WwIwrgbRIElLcS7rBVITmPq69LXtREZ-FfVYudhiryR6-HhZqaRFxKvsnlTt95kojKJ3OfSjosJvlwgjCOd0Owsj2x68zh2P_Jgtskal7mu1-tpCo5Rx_nudo74nv2n9GSWLQ1Wp91JHDIjQtmF9Ye3eTXyfseIKMj2BmxQGfSiOSXkLiNVwxEeQLqsL4R2Hm3D0CSgW-obHcarqzKzrMi9jDK1lyKJMZorOkx9maIUJBXY8QBsX0X75FhRNlIEwqawMdQDu43Bk15BsTxVzaOKY6u6rC78iE-lJm6x99O_9OERDHs4Th0wYszdhcB6GZHmW0leBBNdlWsgePjA7cFx44oT7leAVbVALcl7LrA-I3DNSWm7G8HSJuqTQ_obdux4erxN4DOI8pvHlPR4saZFoTM7fvCdUHHQTfezgusAughZZX4f_16_xhH4';
-  employees$: Observable<Employee[]>;
+  employees = signal<Employee[]>([]);
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.employees$ = of([]);
-    this.fetchData();
+  filterFirstName = signal('');
+  filterLastName = signal('');
+  filterCity = signal('');
+  filterQualification = signal('');
+
+  constructor(private readonly employeeService: EmployeeService) {
+    this.loadEmployees();
   }
 
-  fetchData() {
-    const token = this.authService.getAccessToken();
-    this.employees$ = this.http.get<Employee[]>('http://localhost:8089/employees', {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${token}`)
+  private loadEmployees(): void {
+    this.employeeService.getAll().subscribe({
+      next: (data) => this.employees.set(data),
+      error: (err) => console.error(err),
     });
   }
+
+  clearFilters(): void {
+    this.filterFirstName.set('');
+    this.filterLastName.set('');
+    this.filterCity.set('');
+    this.filterQualification.set('');
+  }
+
+  filteredEmployees = computed(() => {
+    const fn = this.filterFirstName().trim().toLowerCase();
+    const ln = this.filterLastName().trim().toLowerCase();
+    const city = this.filterCity().trim().toLowerCase();
+    const qual = this.filterQualification().trim().toLowerCase();
+
+    return this.employees().filter(e => {
+      const matchesFirst = !fn || e.firstName.toLowerCase().includes(fn);
+      const matchesLast = !ln || e.lastName.toLowerCase().includes(ln);
+      const matchesCity = !city || e.city.toLowerCase().includes(city);
+
+      // Swagger bestätigt: skillSet: [{ id, skill }]
+      const matchesQual =
+        !qual ||
+        (e.skillSet ?? []).some(s =>
+          (s.skill ?? '').toLowerCase().includes(qual) || String(s.id) === qual
+        );
+
+      return matchesFirst && matchesLast && matchesCity && matchesQual;
+    });
+  });
+
 }
