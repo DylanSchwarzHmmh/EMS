@@ -2,11 +2,12 @@ import {Component, computed, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeeService } from '../employee/employee.service';
 import { Employee } from '../employee/employee.model';
+import {RouterModule} from "@angular/router";
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css',
 })
