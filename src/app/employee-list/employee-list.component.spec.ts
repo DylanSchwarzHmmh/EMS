@@ -1,23 +1,27 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { EmployeeService } from '../employee/employee.service';
+import { Employee } from '../employee/employee.model';
 
-import { EmployeeListComponent } from './employee-list.component';
+@Component({
+  selector: 'app-employee-list',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './employee-list.component.html',
+  styleUrl: './employee-list.component.css',
+})
+export class EmployeeListComponent {
 
-describe('EmployeeListComponent', () => {
-  let component: EmployeeListComponent;
-  let fixture: ComponentFixture<EmployeeListComponent>;
+  employees = signal<Employee[]>([]);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [EmployeeListComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(EmployeeListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  constructor(private readonly employeeService: EmployeeService) {
+    this.loadEmployees();
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  private loadEmployees(): void {
+    this.employeeService.getAll().subscribe({
+      next: (data) => this.employees.set(data),
+      error: (err) => console.error(err)
+    });
+  }
+}
