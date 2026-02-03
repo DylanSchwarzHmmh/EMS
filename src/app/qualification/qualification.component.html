@@ -1,10 +1,24 @@
 <div class="container py-5">
+  <div class="row mb-4 align-items-center">
+    <div class="col-md-6">
+      <h2 class="fw-bold mb-0">Qualifikationsliste</h2>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group search-group">
+        <input type="text" class="form-control border-primary" placeholder="Qualifikation suchen...">
+        <button class="btn btn-primary text-white" type="button" id="button-search">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="list-group shadow-sm">
     @if (isAdding){
     <div class="list-group-item d-flex justify-content-between align-items-center mb-3 border border-primary rounded-3 py-3 bg-light">
       <div class="flex-grow-1 px-2">
         <input #newSkillInput type="text" class="form-control" placeholder="Neue Qualifikation eingeben...">
       </div>
+
       <div class="action-buttons">
         <button class="btn btn-link text-success p-1" (click)="onSave(newSkillInput.value)">
           <i class="bi bi-check-lg fs-4"></i>
@@ -37,3 +51,15 @@
     </button>
   </div>
 </div>
+@if (showToast)
+{<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index: 9999; margin-bottom: 20px;">
+  <div class="toast show d-block align-items-center border-0 shadow-lg" [ngClass]="toastClass" role="alert">
+    <div class="d-flex">
+      <div class="toast-body fs-6">
+        {{ toastMessage }}
+      </div>
+      <button type="button" class="btn-close btn-close-danger me-2 m-auto" (click)="showToast = false"></button>
+    </div>
+  </div>
+</div>
+}
