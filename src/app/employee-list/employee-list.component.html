@@ -1,4 +1,4 @@
-<h1>LF10-Starter</h1>
+<h1>prototyp</h1>
 
 <div style="display: grid; gap: 8px; max-width: 520px; margin-bottom: 12px;">
   <input
@@ -25,14 +25,18 @@
     (input)="filterQualification.set($any($event.target).value)"
   />
 
-  <ul>
+  <div style="display:flex; gap: 8px;">
+    <button type="button" (click)="clearFilters()">Filter zurücksetzen</button>
+    <button type="button" [routerLink]="['/employees', 'new']">Neu</button>
+  </div>
+
+  <div style="display: grid; gap: 6px;">
     @for (e of filteredEmployees(); track e.id) {
-      <li>
-        {{ e.lastName }}, {{ e.firstName }} ({{ e.city }})
-      </li>
+      <div style="display:flex; justify-content: space-between; align-items:center;">
+        <span>{{ e.firstName }} {{ e.lastName }} ({{ e.city }})</span>
+        <a [routerLink]="['/employees', e.id]">Bearbeiten</a>
+      </div>
     }
-  </ul>
-
-
-  <button type="button" (click)="clearFilters()">Filter zurücksetzen</button>
+  </div>
 </div>
+
