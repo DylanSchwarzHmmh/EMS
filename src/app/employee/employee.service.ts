@@ -26,7 +26,7 @@ export class EmployeeService {
   }
 
   update(id: number, payload: UpdateEmployee): Observable<Employee> {
-    return this.http.put<Employee>(`${this.baseUrl}${this.endpoint}/${id}`, payload);
+    return this.http.patch<Employee>(`${this.baseUrl}${this.endpoint}/${id}`, payload);
   }
 
   delete(id: number): Observable<void> {
