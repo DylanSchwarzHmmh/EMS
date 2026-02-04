@@ -43,3 +43,5 @@ Thumbs.db
 
 
 .getBearerToken.http
+
+/src/environments
