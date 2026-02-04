@@ -15,6 +15,7 @@ import {NgClass} from "@angular/common";
 export class QualificationComponent implements OnInit {
 
   isAdding = false;
+  editId: number | null = null;
   showToast= false;
   toastMessage= "";
   toastClass= ""; //textColor
@@ -60,6 +61,7 @@ export class QualificationComponent implements OnInit {
         this.loadQualifications();
         this.triggerNotification("Qualifikation wurde gelöscht", false)}
       })
+
   }
 
 
@@ -91,6 +93,7 @@ export class QualificationComponent implements OnInit {
   //Den Service aufrufen, sobald die Komponente "geboren" wird (ngOnInit).
 
 
+
   protected onSave(skillName: string) {
     console.log(this.qualifications)
     if (!skillName || skillName.trim() === '') {
@@ -111,5 +114,33 @@ export class QualificationComponent implements OnInit {
         this.triggerNotification('Qualifikation wurde hizugefügt', false);
    }
     })
+  }
+
+  protected onEdit(id:number, skillName: string) {
+    const  orginalSkill = this.qualifications.find(q => q.id === id);
+    console.log(this.qualifications)
+    if (!skillName || skillName.trim() === '') {
+      this.triggerNotification('Bitte gib einen Namen ein!', true); // true = rot
+      return;
+    }else {
+      if (skillName == orginalSkill?.skill) {
+        this.triggerNotification('Du hast nichts geändert!', false);
+        return;
+      }
+    }
+    const exists = this.qualifications.some(q =>q.skill === skillName);
+    if (exists) {
+      this.triggerNotification("Diese Qualifikation existiert bereits!", true);
+    }
+    this.qualiServ.putQualifications(id,skillName).subscribe({
+      next: () => {
+        // 2. ERFOLG! Jetzt rufen wir unsere Lade-Funktion von vorhin auf
+        // Damit wird die Liste vom Server neu geholt und das HTML aktualisiert sich automatisch.
+        this.loadQualifications();
+        this.hideAddRow()
+        this.triggerNotification('Qualifikation wurde bearbeitet', false);
+      }
+    })
+    this.editId = null;
   }
 }

@@ -1,3 +1,5 @@
+/* STYLES (CSS) */
+
 /* Die lila Rahmen der Boxen */
 .border-primary {
   border-color: #6366f1 !important;
@@ -18,4 +20,21 @@
 .btn-primary:hover {
   background-color: #4f46e5 !important;
   filter: brightness(90%);
+}
+
+/* Skill-Text optisch sauber mittig */
+.list-group-item .skill-text {
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Action Buttons immer sauber mittig + gleicher Abstand */
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+.qualification-wrapper {
+
+  padding: 1rem 1rem;
 }
