@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {computed, Injectable, signal} from '@angular/core';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
 
@@ -19,12 +19,21 @@ export class AuthService {
   };
 
   private configurePromise: Promise<void>;
+  private _isAuthenticated = signal(false);
+  isAuthenticated = computed(() => this._isAuthenticated());
 
   constructor(
     private oauthService: OAuthService,
     private router: Router
   ) {
     this.configurePromise = this.configure();
+    this.oauthService.events.subscribe(event => {
+      if (event.type === 'token_received' || event.type === 'token_refreshed') {
+        this._isAuthenticated.set(true);
+      } else if (event.type === 'logout' || event.type === 'token_expires') {
+        this._isAuthenticated.set(false);
+      }
+    });
   }
 
   private async configure() {
@@ -57,6 +66,7 @@ export class AuthService {
       }
 
       this.oauthService.setupAutomaticSilentRefresh();
+      this._isAuthenticated.set(this.oauthService.hasValidAccessToken());
     } catch (error) {
       console.error('Fehler beim Laden des Discovery-Dokuments:', error);
     }
