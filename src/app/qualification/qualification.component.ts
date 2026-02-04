@@ -76,35 +76,6 @@ export class QualificationComponent implements OnInit {
     });
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //constructor(private qualiService: QualificationService) {
-    // Eine Zeile, um den Motor zu starten
-    //this.qualiService.deleteQualifications(17).subscribe()
-    //this.qualiService.putQualifications(18,"Python").subscribe()
-    //this.qualiService.postQualifications("aa").subscribe()
-    //this.qualiService.getQualifications().subscribe();}
-
-  //Den Service injecten (deinen Koch rufen).
-    //Eine Variable erstellen, in der die Liste gespeichert wird.
-
-  //Den Service aufrufen, sobald die Komponente "geboren" wird (ngOnInit).
-
-
-
   protected onSave(skillName: string) {
     console.log(this.qualifications)
     if (!skillName || skillName.trim() === '') {
@@ -118,8 +89,7 @@ export class QualificationComponent implements OnInit {
 
     this.qualiServ.postQualifications(skillName).subscribe({
       next: () => {
-        // 2. ERFOLG! Jetzt rufen wir unsere Lade-Funktion von vorhin auf
-        // Damit wird die Liste vom Server neu geholt und das HTML aktualisiert sich automatisch.
+
         this.loadQualifications();
         this.hideAddRow()
         this.triggerNotification('Qualifikation wurde hizugefügt', false);
@@ -145,8 +115,7 @@ export class QualificationComponent implements OnInit {
     }
     this.qualiServ.putQualifications(id,skillName).subscribe({
       next: () => {
-        // 2. ERFOLG! Jetzt rufen wir unsere Lade-Funktion von vorhin auf
-        // Damit wird die Liste vom Server neu geholt und das HTML aktualisiert sich automatisch.
+
         this.loadQualifications();
         this.hideAddRow()
         this.triggerNotification('Qualifikation wurde bearbeitet', false);
