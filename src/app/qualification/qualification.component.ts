@@ -2,6 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {QualificationService} from "../services/quali/qualification.service";
 import {Qualification} from "../services/quali/qualification.model";
 import {NgClass} from "@angular/common";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-qualification',
@@ -53,16 +54,27 @@ export class QualificationComponent implements OnInit {
     })
     console.log("Load Qualifications"+ this.qualifications);
   }
-
-  protected onDelete(id: number) {
+  onDelete(id: number) {
     this.qualiServ.deleteQualifications(id).subscribe({
       next: () => {
+
         this.loadQualifications();
-        this.triggerNotification("Qualifikation wurde gelöscht", false)}
-      })
+        this.triggerNotification('Qualifikation wurde gelöscht.', false);
+      },
+      error: (err: HttpErrorResponse) => {
 
+        console.error('Löschfehler:', err);
+
+        // prüfen, ob die Fehlermeldung den Hinweis auf den Constraint (fk...) enthält
+        if (err.status === 500 && err.error?.message?.includes('constraint')) {
+          this.triggerNotification(
+            'Löschen nicht möglich: Diese Qualifikation ist noch einem Mitarbeiter zugewiesen!',
+            true
+          );
+        }
+      }
+    });
   }
-
 
 
 
