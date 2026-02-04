@@ -35,6 +35,8 @@
   gap: .25rem;
 }
 .qualification-wrapper {
-
   padding: 1rem 1rem;
+}
+.search-group{
+  padding-right:0;
 }

@@ -19,6 +19,7 @@ export class QualificationComponent implements OnInit {
   showToast= false;
   toastMessage= "";
   toastClass= ""; //textColor
+  isSearching = false;
 
   showAddRow(){
     this.isAdding = true;
@@ -56,8 +57,6 @@ export class QualificationComponent implements OnInit {
   protected onDelete(id: number) {
     this.qualiServ.deleteQualifications(id).subscribe({
       next: () => {
-        // 2. ERFOLG! Jetzt rufen wir unsere Lade-Funktion von vorhin auf
-        // Damit wird die Liste vom Server neu geholt und das HTML aktualisiert sich automatisch.
         this.loadQualifications();
         this.triggerNotification("Qualifikation wurde gelöscht", false)}
       })
@@ -117,7 +116,7 @@ export class QualificationComponent implements OnInit {
   }
 
   protected onEdit(id:number, skillName: string) {
-    const  orginalSkill = this.qualifications.find(q => q.id === id);
+    const orginalSkill = this.qualifications.find(q => q.id === id);
     console.log(this.qualifications)
     if (!skillName || skillName.trim() === '') {
       this.triggerNotification('Bitte gib einen Namen ein!', true); // true = rot
@@ -142,5 +141,15 @@ export class QualificationComponent implements OnInit {
       }
     })
     this.editId = null;
+  }
+
+  protected onSearch(searchValue: string) {
+    this.isSearching =true
+    const exists = this.qualifications.some(q =>q.skill === searchValue);
+    if (!exists) {
+      this.triggerNotification("Keine Übereinstimung gefunden ", true);
+      this.isSearching = false
+    }
+
   }
 }
