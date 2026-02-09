@@ -1,4 +1,5 @@
-<h1>LF10-Starter</h1>
+
+<h1>Mitarbeiter</h1>
 
 <div style="display: grid; gap: 8px; max-width: 520px; margin-bottom: 12px;">
   <input
@@ -25,6 +26,7 @@
     (input)="filterQualification.set($any($event.target).value)"
   />
 
+<<<<<<< HEAD
   <ul>
     @for (e of filteredEmployees(); track e.id) {
       <li>
@@ -36,3 +38,20 @@
 
   <button type="button" (click)="clearFilters()">Filter zurücksetzen</button>
 </div>
+=======
+  <div style="display:flex; gap: 8px;">
+    <button type="button" (click)="clearFilters()">Filter zurücksetzen</button>
+    <button type="button" [routerLink]="['/employees', 'new']">Neu</button>
+  </div>
+
+  <div style="display: grid; gap: 6px;">
+    @for (e of filteredEmployees(); track e.id) {
+      <div style="display:flex; justify-content: space-between; align-items:center;">
+        <span>{{ e.firstName }} {{ e.lastName }} ({{ e.city }})</span>
+        <a [routerLink]="['/employees', e.id]">Bearbeiten</a>
+      </div>
+    }
+  </div>
+</div>
+
+>>>>>>> origin/5-mitarbeiter-anlegen-und-bearbeiten

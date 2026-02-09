@@ -1,16 +1,18 @@
-import {Component, computed, signal} from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { EmployeeService } from '../employee/employee.service';
 import { Employee } from '../employee/employee.model';
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css',
 })
 export class EmployeeListComponent {
+
   employees = signal<Employee[]>([]);
 
   filterFirstName = signal('');
@@ -47,7 +49,6 @@ export class EmployeeListComponent {
       const matchesLast = !ln || e.lastName.toLowerCase().includes(ln);
       const matchesCity = !city || e.city.toLowerCase().includes(city);
 
-      // Swagger bestätigt: skillSet: [{ id, skill }]
       const matchesQual =
         !qual ||
         (e.skillSet ?? []).some(s =>

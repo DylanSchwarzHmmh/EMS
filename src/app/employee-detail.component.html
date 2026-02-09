@@ -1,0 +1,17 @@
+<h1>{{ isEdit() ? 'Mitarbeiter bearbeiten' : 'Mitarbeiter anlegen' }}</h1>
+
+@if (errorMessage(); as msg) {
+  <div class="errorBox">
+    {{ msg }}
+    <div style="margin-top: 12px;">
+      <button type="button" (click)="onBackToList()">Zurück zur Liste</button>
+    </div>
+  </div>
+}
+
+<app-employee-form
+  [employee]="employee()"
+  [saving]="saving()"
+  (save)="onSave($event)"
+  (cancel)="onCancel()"
+/>

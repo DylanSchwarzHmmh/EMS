@@ -1,0 +1,150 @@
+/* =========================
+   FORM LAYOUT
+   ========================= */
+
+.form {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.field label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+/* Zwei-Spalten-Zeilen (PLZ / Ort) */
+.row {
+  display: flex;
+  gap: 1rem;
+}
+
+.row .field {
+  flex: 1;
+}
+
+/* =========================
+   INPUTS
+   ========================= */
+
+input[type="text"] {
+  padding: 0.5rem 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.3);
+}
+
+/* Invalid State (Signal Forms) */
+input.ng-invalid.ng-touched,
+input:has(+ .error) {
+  border-color: #ef4444;
+}
+
+/* =========================
+   ERROR STATES
+   ========================= */
+
+.error {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: #ef4444;
+}
+
+.errorBox {
+  background-color: #fee2e2;
+  border: 1px solid #ef4444;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+/* =========================
+   ACTIONS / BUTTONS
+   ========================= */
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Primary Button (passt zu deinem bestehenden Lila) */
+button[type="submit"] {
+  background-color: #6366f1;
+  border-color: #6366f1;
+  color: #fff;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background-color: #4f46e5;
+  filter: brightness(95%);
+}
+
+/* Secondary / Cancel */
+button[type="button"] {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+button[type="button"]:hover:not(:disabled) {
+  background-color: #e5e7eb;
+}
+
+/* Disabled */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   CONSISTENCY WITH EXISTING STYLES
+   ========================= */
+
+/* reuse existing primary helpers */
+.border-primary {
+  border-color: #6366f1 !important;
+}
+
+.btn-primary,
+.bg-primary {
+  background-color: #6366f1 !important;
+  border-color: #6366f1 !important;
+}
+
+.text-primary {
+  color: #6366f1 !important;
+}
+
+.btn-primary:hover {
+  background-color: #4f46e5 !important;
+  filter: brightness(90%);
+}
+
+/* Alignment helpers (falls wiederverwendet) */
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
