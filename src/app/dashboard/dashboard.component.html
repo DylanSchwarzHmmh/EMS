@@ -1,0 +1,44 @@
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-bold text-dark">Willkommen im</h1>
+    <h1 class="display-4 fw-extrabold text-primary shadow-text">Employee Management System</h1>
+  </div>
+
+  <div class="row g-4 justify-content-center">
+    <div class="col-md-5 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm dashboard-card border-top-primary">
+        <div class="card-body text-center p-4">
+          <div class="icon-box mb-3 mx-auto bg-primary-light">
+            <i class="bi bi-people-fill text-primary fs-1"></i>
+          </div>
+          <h3 class="card-title fw-bold mb-3">Mitarbeiter</h3>
+          <div class="d-flex justify-content-between align-items-center bg-light rounded-3 p-3 mb-4">
+            <span class="text-muted fw-medium">Anzahl:</span>
+            <span class="fs-4 fw-bold text-dark">{{ employeeCount() }}</span>
+          </div>
+          <button class="btn btn-primary w-100 rounded-pill py-2" routerLink="/employees">
+            Verwalten <i class="bi bi-arrow-right ms-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-5 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm dashboard-card border-top-secondary">
+        <div class="card-body text-center p-4">
+          <div class="icon-box mb-3 mx-auto bg-secondary-light">
+            <i class="bi bi-patch-check-fill text-secondary fs-1"></i>
+          </div>
+          <h3 class="card-title fw-bold mb-3">Qualifikationen</h3>
+          <div class="d-flex justify-content-between align-items-center bg-light rounded-3 p-3 mb-4">
+            <span class="text-muted fw-medium">Anzahl:</span>
+            <span class="fs-4 fw-bold text-dark">{{ qualificationCount() }}</span>
+          </div>
+          <button class="btn btn-outline-secondary w-100 rounded-pill py-2" routerLink="/qualifications">
+            Verwalten <i class="bi bi-arrow-right ms-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

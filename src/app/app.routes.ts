@@ -4,9 +4,10 @@ import {QualificationComponent} from "./qualification/qualification.component";
 import { HomeComponent } from './home/home.component';
 import { CallbackComponent } from './callback/callback.component';
 import { authGuard } from './auth.guard';
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 export const routes: Routes = [
-  { path: 'dashboard', component: EmployeeListComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'employee', component: EmployeeListComponent },
   { path: 'qualification', component: QualificationComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
