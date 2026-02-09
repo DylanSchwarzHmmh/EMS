@@ -68,12 +68,12 @@
 }
 
 .btn-sso {
-  border-color: var(--primary-color);
   color: var(--white);
   background-color: var(--primary-color);
   padding: 0.625rem 1rem;
   font-weight: 500;
   border-radius: 6px;
+  border: none;
 }
 
 .btn-sso:hover {

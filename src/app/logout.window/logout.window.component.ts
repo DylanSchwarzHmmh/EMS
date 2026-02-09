@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, output} from '@angular/core';
 import {AuthService} from "../services/auth.service";
 
 @Component({
@@ -11,11 +11,13 @@ import {AuthService} from "../services/auth.service";
 export class LogoutWindowComponent {
   private authService = inject(AuthService);
 
+  closeEvent = output<void>();
+
   logout(): void {
     this.authService.logout();
   }
 
   close(): void {
-    window.close();
+    this.closeEvent.emit();
   }
 }

@@ -19,3 +19,10 @@
   </div>
 </nav>
 
+@if (isLogoutVisible()) {
+  <div class="modal-overlay" (click)="closeLogout()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <app-logout-window (closeEvent)="closeLogout()"></app-logout-window>
+    </div>
+  </div>
+}
