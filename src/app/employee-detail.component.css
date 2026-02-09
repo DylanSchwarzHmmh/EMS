@@ -1,0 +1,54 @@
+/* =========================
+   PAGE LAYOUT
+   ========================= */
+
+:host {
+  display: block;
+  padding: 1.5rem 2rem;
+}
+
+/* =========================
+   HEADER
+   ========================= */
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  color: #111827;
+}
+
+/* =========================
+   ERROR STATE (PAGE LEVEL)
+   ========================= */
+
+.errorBox {
+  background-color: #fee2e2;
+  border: 1px solid #ef4444;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.errorBox button {
+  margin-top: 0.75rem;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.errorBox button:hover {
+  background-color: #e5e7eb;
+}
+
+/* =========================
+   CONTENT SEPARATION
+   ========================= */
+
+app-employee-form {
+  display: block;
+  margin-top: 1rem;
+}

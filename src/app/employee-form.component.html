@@ -1,0 +1,53 @@
+<form (submit)="onSubmit($event)" class="form">
+  <div class="field">
+    <label>Vorname *</label>
+    <input type="text" [formField]="employeeForm.firstName" />
+    @if (employeeForm.firstName().touched() && employeeForm.firstName().invalid()) {
+      <div class="error">
+        @for (err of employeeForm.firstName().errors(); track err) {
+          <div>{{ err.message }}</div>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="field">
+    <label>Nachname *</label>
+    <input type="text" [formField]="employeeForm.lastName" />
+    @if (employeeForm.lastName().touched() && employeeForm.lastName().invalid()) {
+      <div class="error">
+        @for (err of employeeForm.lastName().errors(); track err) {
+          <div>{{ err.message }}</div>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="field">
+    <label>Straße</label>
+    <input type="text" [formField]="employeeForm.street" />
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label>PLZ</label>
+      <input type="text" [formField]="employeeForm.postcode" />
+    </div>
+    <div class="field">
+      <label>Ort</label>
+      <input type="text" [formField]="employeeForm.city" />
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Telefon</label>
+    <input type="text" [formField]="employeeForm.phone" />
+  </div>
+
+  <div class="actions">
+    <button type="button" (click)="cancel.emit()" [disabled]="saving()">Abbrechen</button>
+    <button type="submit" [disabled]="employeeForm().invalid() || saving()">
+      {{ saving() ? 'Speichern…' : 'Speichern' }}
+    </button>
+  </div>
+</form>
