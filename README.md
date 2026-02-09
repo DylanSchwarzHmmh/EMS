@@ -380,7 +380,7 @@ export class EmployeeListComponent {
 
 
 
-## Schritt 7: Anmeldung
+## Anmeldung
 
 Folgende daten können bei der anmeldung benutzt werden:
 
