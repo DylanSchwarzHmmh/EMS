@@ -17,12 +17,11 @@
   margin-bottom: 1.5rem;
 }
 .btn{
-  padding: 10px;
   border-radius: 8px;
   font-weight: 600;
   margin-bottom: 0.5rem;
   height: 3rem;
-  min-width: 4rem;
+  width: 4rem;
   border: none;
   color: var(--white);
 }
@@ -34,11 +33,11 @@
   background: var(--primary-hover);
 }
 
-.btn-close {
+.btn-closing {
   background: var(--grey);
 }
 
-.btn-close:hover {
+.btn-closing:hover {
   background: var(--text-muted);
 }
 
