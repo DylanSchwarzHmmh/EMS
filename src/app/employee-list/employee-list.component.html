@@ -1,9 +1,38 @@
 <h1>LF10-Starter</h1>
-Wenn Sie in der EmployeeListComponent.ts ein gültiges Bearer-Token eintragen, sollten hier die Namen der in der Datenbank gespeicherten Mitarbeiter angezeigt werden!
-<ul>
-  @for(e of employees$ | async; track e.id) {
-    <li>
-      {{e.lastName }}, {{e.firstName}}
-    </li>
-  }
-</ul>
+
+<div style="display: grid; gap: 8px; max-width: 520px; margin-bottom: 12px;">
+  <input
+    placeholder="Vorname"
+    [value]="filterFirstName()"
+    (input)="filterFirstName.set($any($event.target).value)"
+  />
+
+  <input
+    placeholder="Nachname"
+    [value]="filterLastName()"
+    (input)="filterLastName.set($any($event.target).value)"
+  />
+
+  <input
+    placeholder="Ort"
+    [value]="filterCity()"
+    (input)="filterCity.set($any($event.target).value)"
+  />
+
+  <input
+    placeholder="Qualifikation (z.B. Angular oder 2)"
+    [value]="filterQualification()"
+    (input)="filterQualification.set($any($event.target).value)"
+  />
+
+  <ul>
+    @for (e of filteredEmployees(); track e.id) {
+      <li>
+        {{ e.lastName }}, {{ e.firstName }} ({{ e.city }})
+      </li>
+    }
+  </ul>
+
+
+  <button type="button" (click)="clearFilters()">Filter zurücksetzen</button>
+</div>
