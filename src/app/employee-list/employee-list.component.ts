@@ -18,6 +18,11 @@ export class EmployeeListComponent {
   filterLastName = signal('');
   filterCity = signal('');
   filterQualification = signal('');
+  searchTerm = signal('');
+
+  onSearch(value: string): void {
+    this.searchTerm.set((value ?? '').trim().toLowerCase());
+  }
 
   constructor(private readonly employeeService: EmployeeService) {
     this.loadEmployees();
@@ -42,21 +47,27 @@ export class EmployeeListComponent {
     const ln = this.filterLastName().trim().toLowerCase();
     const city = this.filterCity().trim().toLowerCase();
     const qual = this.filterQualification().trim().toLowerCase();
+    const term = this.searchTerm().trim().toLowerCase();
 
     return this.employees().filter(e => {
       const matchesFirst = !fn || e.firstName.toLowerCase().includes(fn);
       const matchesLast = !ln || e.lastName.toLowerCase().includes(ln);
       const matchesCity = !city || e.city.toLowerCase().includes(city);
 
-      // Swagger bestätigt: skillSet: [{ id, skill }]
       const matchesQual =
         !qual ||
         (e.skillSet ?? []).some(s =>
           (s.skill ?? '').toLowerCase().includes(qual) || String(s.id) === qual
         );
 
-      return matchesFirst && matchesLast && matchesCity && matchesQual;
+      const matchesSearch =
+        !term ||
+        (
+          `${e.firstName} ${e.lastName} ${e.city} ${e.postcode}`.toLowerCase().includes(term) ||
+          (e.skillSet ?? []).some(s => (s.skill ?? '').toLowerCase().includes(term))
+        );
+
+      return matchesFirst && matchesLast && matchesCity && matchesQual && matchesSearch;
     });
   });
-
 }

@@ -1,42 +1,73 @@
-<h1>prototyp</h1>
+<div class="container py-5">
+  <!-- Header + Search (wie Quali) -->
+  <div class="row mb-4 align-items-center text-center text-md-start">
+    <div class="col-md-6 mb-3 mb-md-0">
+      <h2 class="fw-bold mb-0">Mitarbeiterliste</h2>
+    </div>
 
-<div style="display: grid; gap: 8px; max-width: 520px; margin-bottom: 12px;">
-  <input
-    placeholder="Vorname"
-    [value]="filterFirstName()"
-    (input)="filterFirstName.set($any($event.target).value)"
-  />
-
-  <input
-    placeholder="Nachname"
-    [value]="filterLastName()"
-    (input)="filterLastName.set($any($event.target).value)"
-  />
-
-  <input
-    placeholder="Ort"
-    [value]="filterCity()"
-    (input)="filterCity.set($any($event.target).value)"
-  />
-
-  <input
-    placeholder="Qualifikation (z.B. Angular oder 2)"
-    [value]="filterQualification()"
-    (input)="filterQualification.set($any($event.target).value)"
-  />
-
-  <div style="display:flex; gap: 8px;">
-    <button type="button" (click)="clearFilters()">Filter zurücksetzen</button>
-    <button type="button" [routerLink]="['/employees', 'new']">Neu</button>
+    <div class="col-md-6">
+      <div class="input-group search-group mx-auto ms-md-auto" style="max-width: 550px;">
+        <input
+          #searchValue
+          type="text"
+          class="form-control border-primary"
+          placeholder="Mitarbeiter suchen..."
+          (input)="onSearch(searchValue.value)"
+        />
+        <button
+          class="btn btn-primary text-white"
+          type="button"
+          (click)="onSearch(searchValue.value)"
+        >
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <div style="display: grid; gap: 6px;">
-    @for (e of filteredEmployees(); track e.id) {
-      <div style="display:flex; justify-content: space-between; align-items:center;">
-        <span>{{ e.firstName }} {{ e.lastName }} ({{ e.city }})</span>
-        <a [routerLink]="['/employees', e.id]">Bearbeiten</a>
+  <!-- List -->
+  <div class="list-group shadow-sm employee-wrapper">
+    @for (emp of filteredEmployees(); track emp.id) {
+      <div
+        class="list-group-item d-flex justify-content-between align-items-center mb-3 border border-primary rounded-3 py-3"
+      >
+        <div class="px-2">
+          <div class="fs-5 fw-semibold">
+            {{ emp.firstName }} {{ emp.lastName }}
+          </div>
+
+          <div class="text-muted small">
+            {{ emp.city }} · {{ emp.postcode }}
+          </div>
+
+          @if (emp.skillSet.length) {
+            <div class="skill-row mt-2">
+              @for (s of emp.skillSet; track s.id) {
+                <span class="skill-pill">{{ s.skill }}</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="action-buttons">
+          <a class="btn btn-link text-primary p-1" [routerLink]="['/employees', emp.id]">
+            <i class="bi bi-pencil-fill"></i>
+          </a>
+        </div>
       </div>
+    } @empty {
+      <p class="text-center text-muted">Keine Mitarbeiter gefunden</p>
     }
   </div>
-</div>
 
+  <!-- Floating Add Button -->
+  <div class="position-fixed bottom-0 end-0 p-4">
+    <a
+      class="btn btn-primary rounded-circle shadow-lg d-flex align-items-center justify-content-center"
+      style="width: 60px; height: 60px;"
+      [routerLink]="['/employees/new']"
+    >
+      <i class="bi bi-plus-lg fs-2"></i>
+    </a>
+  </div>
+</div>

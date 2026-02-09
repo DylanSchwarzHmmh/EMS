@@ -32,4 +32,17 @@ export class EmployeeService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}${this.endpoint}/${id}`);
   }
+
+  addQualification(employeeId: number, qualificationId: number): Observable<Employee> {
+    return this.http.post<Employee>(
+      `${this.baseUrl}${this.endpoint}/${employeeId}/qualifications`,
+      { qualificationId }
+    );
+  }
+
+  removeQualification(employeeId: number, qualificationId: number): Observable<Employee> {
+    return this.http.delete<Employee>(
+      `${this.baseUrl}${this.endpoint}/${employeeId}/qualifications/${qualificationId}`
+    );
+  }
 }

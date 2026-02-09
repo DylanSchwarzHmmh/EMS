@@ -1,54 +1,90 @@
 /* =========================
-   PAGE LAYOUT
+   FORM LAYOUT (reused look)
    ========================= */
 
-:host {
-  display: block;
-  padding: 1.5rem 2rem;
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.field label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
 }
 
 /* =========================
-   HEADER
+   INPUTS
    ========================= */
 
-h1 {
-  font-size: 1.5rem;
+select {
+  padding: 0.5rem 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.3);
+}
+
+/* =========================
+   QUALIFICATIONS / SKILLSET
+   ========================= */
+
+.section {
+  max-width: 720px;
+  margin: 1.5rem auto 0;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.section-title {
   font-weight: 600;
-  margin-bottom: 1.25rem;
+  font-size: 1.05rem;
+  margin-bottom: 0.75rem;
   color: #111827;
 }
 
-/* =========================
-   ERROR STATE (PAGE LEVEL)
-   ========================= */
-
-.errorBox {
-  background-color: #fee2e2;
-  border: 1px solid #ef4444;
-  color: #991b1b;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+.select-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
 }
 
-.errorBox button {
-  margin-top: 0.75rem;
-  background-color: #f3f4f6;
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
   border: 1px solid #d1d5db;
-  padding: 0.4rem 0.75rem;
-  border-radius: 6px;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.9rem;
+}
+
+.skill-chip button {
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #f3f4f6;
   cursor: pointer;
+  font-weight: 600;
+  line-height: 1;
 }
 
-.errorBox button:hover {
-  background-color: #e5e7eb;
+.skill-chip button:hover:not(:disabled) {
+  background: #e5e7eb;
 }
 
-/* =========================
-   CONTENT SEPARATION
-   ========================= */
-
-app-employee-form {
-  display: block;
-  margin-top: 1rem;
-}
