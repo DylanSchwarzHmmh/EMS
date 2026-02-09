@@ -334,3 +334,67 @@ export class EmployeeListComponent {
 
 Trage hier die Features ein, die nicht funktionieren. Beschreibe den jeweiligen Fehler. 
 
+
+## Schritt 7: Employee-List-Komponente anpassen
+
+Füge den Access Token zu den HTTP-Requests hinzu:
+
+```typescript
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Observable, of } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Employee } from "../Employee";
+import { AuthService } from "../auth.service";
+
+@Component({
+  selector: 'app-employee-list',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './employee-list.component.html',
+  styleUrl: './employee-list.component.css'
+})
+export class EmployeeListComponent {
+  employees$: Observable<Employee[]>;
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
+    this.employees$ = of([]);
+    this.fetchData();
+  }
+
+  fetchData() {
+    const token = this.authService.getAccessToken();
+    this.employees$ = this.http.get<Employee[]>('http://localhost:8089/employees', {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+    });
+  }
+
+ 
+}
+```
+
+
+
+## Schritt 7: Anmeldung
+
+Folgende daten können bei der anmeldung benutzt werden:
+
+```typescript
+
+Email: a@b.com
+Password:  secret
+```
+
+in folgenden Datei muss den Access-Token angegeben sein:
+
+```typescript
+
+"\EMS\src\environments\environment.ts"
+
+```
+
