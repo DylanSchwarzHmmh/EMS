@@ -115,3 +115,28 @@
     padding: 0.5rem 1rem;
   }
 }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.5); /* Ein dunkles Blau-Grau mit Transparenz */
+  backdrop-filter: blur(4px); /* Schicker Unschärfe-Effekt */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  border: 3px solid var(--primary-color);
+  max-width: 400px;
+  width: 90%;
+}
+
+

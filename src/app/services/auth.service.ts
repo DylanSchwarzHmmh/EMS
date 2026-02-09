@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {computed, Injectable, signal} from '@angular/core';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
 
@@ -19,22 +19,29 @@ export class AuthService {
   };
 
   private configurePromise: Promise<void>;
+  private _isAuthenticated = signal(false);
+  isAuthenticated = computed(() => this._isAuthenticated());
 
   constructor(
     private oauthService: OAuthService,
     private router: Router
   ) {
     this.configurePromise = this.configure();
+    this.oauthService.events.subscribe(event => {
+      if (event.type === 'token_received' || event.type === 'token_refreshed') {
+        this._isAuthenticated.set(true);
+      } else if (event.type === 'logout' || event.type === 'token_expires') {
+        this._isAuthenticated.set(false);
+      }
+    });
   }
 
   private async configure() {
     this.oauthService.configure(this.authConfig);
 
     try {
-      // Discovery-Dokument laden
       await this.oauthService.loadDiscoveryDocument();
 
-      // Authentik gibt die Endpoints als Arrays zurück, wir müssen sie normalisieren
       const discoveryDoc = (this.oauthService as any).discoveryDocument;
       if (discoveryDoc) {
         const endpointFields = [
@@ -57,6 +64,7 @@ export class AuthService {
       }
 
       this.oauthService.setupAutomaticSilentRefresh();
+      this._isAuthenticated.set(this.oauthService.hasValidAccessToken());
     } catch (error) {
       console.error('Fehler beim Laden des Discovery-Dokuments:', error);
     }
@@ -66,12 +74,15 @@ export class AuthService {
     try {
       await this.configurePromise;
       await this.oauthService.tryLogin();
-      return this.hasValidToken();
+      const isValid = this.hasValidToken();
+      this._isAuthenticated.set(isValid);
+      return isValid;
     } catch (error) {
       console.error('Fehler beim Login-Callback:', error);
       return false;
     }
   }
+
 
   public async login() {
     await this.configurePromise;
@@ -80,6 +91,8 @@ export class AuthService {
 
   public logout() {
     this.oauthService.logOut();
+    this._isAuthenticated.set(false);
+    this.router.navigate(['/login']);
   }
 
   public hasValidToken(): boolean {
@@ -89,4 +102,6 @@ export class AuthService {
   public getAccessToken(): string {
     return this.oauthService.getAccessToken();
   }
+
+
 }

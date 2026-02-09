@@ -1,7 +1,7 @@
 <nav class="ems-navbar">
 
   <!-- Logo links -->
-  <a href="/" class="ems-logo">
+  <a [routerLink]="['/dashboard']" class="ems-logo">
     <strong>EMS</strong>
     <span>Employee Management System</span>
   </a>
@@ -15,6 +15,14 @@
 
   <!-- Logout -->
   <div class="ems-logout-wrapper">
-    <i class="bi bi-box-arrow-right ems-logout" title="Abmelden"></i>
+    <i class="bi bi-box-arrow-right ems-logout" title="Abmelden" (click)="openLogout()"></i>
   </div>
 </nav>
+
+@if (isLogoutVisible()) {
+  <div class="modal-overlay" (click)="closeLogout()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <app-logout-window (closeEvent)="closeLogout()"></app-logout-window>
+    </div>
+  </div>
+}

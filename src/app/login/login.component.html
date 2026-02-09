@@ -1,0 +1,29 @@
+
+<div class="login-wrapper">
+  <div class="ems-logo">
+    <strong>EMS</strong>
+    <span>Employee Management System</span>
+  </div>
+  <div class="login-container card">
+    <div class="card-body">
+      <h2 class="card-title">Anmeldung (SSO)</h2>
+
+      @if (errorMessage()) {
+        <div class="alert alert-danger py-2" role="alert">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <div class="btn-wrapper">
+        <button
+          class="btn btn-sso"
+          (click)="onSsoLogin()"
+          [disabled]="isLoading()"
+        >
+          <i class="bi bi-shield-lock"></i>
+          Login
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
