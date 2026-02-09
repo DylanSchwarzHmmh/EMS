@@ -1,6 +1,6 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {AuthService} from "../services/auth.service";
+import {LogoutWindowComponent} from "../logout.window/logout.window.component";
 
 @Component({
   selector: 'app-nav',
@@ -13,10 +13,7 @@ import {AuthService} from "../services/auth.service";
   styleUrl: './nav.component.css'
 })
 export class NavComponent {
-  private authService = inject(AuthService);
 
-  logout(): void {
-    this.authService.logout();
+  openLogout(): void {
   }
-
 }
