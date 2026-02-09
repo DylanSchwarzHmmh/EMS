@@ -1,59 +1,92 @@
+:host {
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --white: #ffffff;
+  --black: #000000;
+  --light-grey: #e2e8f0;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
 .login-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 80vh;
+  min-height: 100vh;
+  background-color: var(--white);
+  justify-content: center;
+  padding: 1rem;
+}
+
+.ems-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 16px;
+  padding: 0.75rem 1.5rem;
+  box-shadow: var(--shadow-lg);
+  margin: 0 0 1.5rem 0;
+  border: 1px solid var(--shadow);
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.ems-logo strong {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+}
+
+.ems-logo span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-left: 2px solid var(--light-grey);
+  padding-left: 12px;
 }
 
 .login-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  border: 3px solid var(--primary-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-lg);
+}
+
+.login-container .card-body {
   padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.form-group {
-  margin-bottom: 1rem;
+.card-title {
+  font-weight: 600;
+  color: var(--black);
+  display: flex;
+  justify-content: center;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
+.btn-sso {
+  border-color: var(--primary-color);
+  color: var(--white);
+  background-color: var(--primary-color);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  border-radius: 6px;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box; /* Wichtig damit Padding nicht die Breite sprengt */
+.btn-sso:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
-.error-alert {
-  color: #d32f2f;
-  background-color: #fdecea;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
+.btn-wrapper{
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
-.actions button {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.actions button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.alert-danger {
+  font-size: 0.875rem;
 }

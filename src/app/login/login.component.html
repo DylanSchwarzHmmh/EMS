@@ -1,43 +1,29 @@
+
 <div class="login-wrapper">
-  <div class="login-container">
-    <h2>Anmelden</h2>
-    <p>Bitte geben Sie Ihre Daten ein.</p>
+  <div class="ems-logo">
+    <strong>EMS</strong>
+    <span>Employee Management System</span>
+  </div>
+  <div class="login-container card">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Anmeldung (SSO)</h2>
 
-    <div class="form-group">
-      <label for="username">Benutzername</label>
-      <input
-        id="username"
-        type="text"
-        [ngModel]="username()"
-        (ngModelChange)="username.set($event)"
-        placeholder="Benutzername"
-        [disabled]="isLoading()"
-      />
-    </div>
+      @if (errorMessage()) {
+        <div class="alert alert-danger py-2" role="alert">
+          {{ errorMessage() }}
+        </div>
+      }
 
-    <div class="form-group">
-      <label for="password">Passwort</label>
-      <input
-        id="password"
-        type="password"
-        [ngModel]="password()"
-        (ngModelChange)="password.set($event)"
-        placeholder="Passwort"
-        [disabled]="isLoading()"
-      />
-    </div>
-
-    @if ( errorMessage()) {
-      <div class="error-alert">
-        {{ errorMessage() }}
+      <div class="btn-wrapper mt-3">
+        <button
+          class="btn btn-sso w-100"
+          (click)="onSsoLogin()"
+          [disabled]="isLoading()"
+        >
+          <i class="bi bi-shield-lock me-2"></i>
+          Login
+        </button>
       </div>
-    }
-
-
-    <div class="actions">
-      <button (click)="onLogin()" [disabled]="isLoading()">
-        {{ isLoading() ? 'Weiterleitung...' : 'Login' }}
-      </button>
     </div>
   </div>
 </div>

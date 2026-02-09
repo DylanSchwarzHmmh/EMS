@@ -40,10 +40,8 @@ export class AuthService {
     this.oauthService.configure(this.authConfig);
 
     try {
-      // Discovery-Dokument laden
       await this.oauthService.loadDiscoveryDocument();
 
-      // Authentik gibt die Endpoints als Arrays zurück, wir müssen sie normalisieren
       const discoveryDoc = (this.oauthService as any).discoveryDocument;
       if (discoveryDoc) {
         const endpointFields = [
@@ -76,12 +74,15 @@ export class AuthService {
     try {
       await this.configurePromise;
       await this.oauthService.tryLogin();
-      return this.hasValidToken();
+      const isValid = this.hasValidToken();
+      this._isAuthenticated.set(isValid);
+      return isValid;
     } catch (error) {
       console.error('Fehler beim Login-Callback:', error);
       return false;
     }
   }
+
 
   public async login() {
     await this.configurePromise;
@@ -90,6 +91,8 @@ export class AuthService {
 
   public logout() {
     this.oauthService.logOut();
+    this._isAuthenticated.set(false);
+    this.router.navigate(['/login']);
   }
 
   public hasValidToken(): boolean {
@@ -99,4 +102,6 @@ export class AuthService {
   public getAccessToken(): string {
     return this.oauthService.getAccessToken();
   }
+
+
 }
