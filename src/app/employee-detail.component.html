@@ -1,4 +1,4 @@
-<h1>{{ isEdit() ? 'Mitarbeiter bearbeiten' : 'Mitarbeiter anlegen' }}</h1>
+<h2>{{ isEdit() ? 'Mitarbeiter bearbeiten' : 'Mitarbeiter anlegen' }}</h2>
 
 @if (errorMessage(); as msg) {
   <div class="errorBox">
@@ -15,3 +15,60 @@
   (save)="onSave($event)"
   (cancel)="onCancel()"
 />
+
+@if (employee(); as emp) {
+  <section class="section">
+    <div class="section-title">Qualifikationen</div>
+
+    @if (skillError(); as sErr) {
+      <div class="errorBox">
+        {{ sErr }}
+      </div>
+    }
+
+    <div class="select-row">
+      <div class="field" style="flex: 1;">
+        <label>Verfügbare Qualifikationen</label>
+        <select
+          [disabled]="skillSaving() || availableQualifications().length === 0"
+          (change)="onSelectQualification($event)"
+        >
+          <option value="">-- auswählen --</option>
+          @for (q of availableQualifications(); track q.id) {
+            <option [value]="q.id">{{ q.skill }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="actions" style="margin-top: 0;">
+        <button
+          type="button"
+          (click)="addSelectedQualification()"
+          [disabled]="skillSaving() || !selectedQualificationId()"
+        >
+          Hinzufügen
+        </button>
+      </div>
+    </div>
+
+    <div style="margin-top: 1rem;">
+      <div class="section-title" style="margin-bottom: .5rem;">Aktuelles Skillset</div>
+
+      @if (emp.skillSet.length) {
+        <div class="skill-list">
+          @for (s of emp.skillSet; track s.id) {
+            <span class="skill-chip">
+              {{ s.skill }}
+              <button type="button" (click)="removeQualification(s.id)" [disabled]="skillSaving()">
+                ×
+              </button>
+            </span>
+          }
+        </div>
+      } @else {
+        <p style="color:#6b7280; margin: 0;">Noch keine Qualifikationen zugeordnet.</p>
+      }
+    </div>
+  </section>
+}
+

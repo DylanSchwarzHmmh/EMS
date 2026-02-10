@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 
-import { RouterOutlet } from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {NavComponent} from "./nav/nav.component";
 import {CommonModule} from "@angular/common";
 import {AuthService} from "./services/auth.service";
